@@ -6,7 +6,11 @@ class Tweet < ActiveRecord::Base
     self.hashtags.pluck(:name)
   end
 
+  def self.ordered
+    order("created_at DESC")
+  end
+
   def self.ordered_json
-    order("created_at DESC").limit(50).to_json(methods: :hashtag_names)
+    ordered.limit(50).to_json(methods: :hashtag_names)
   end
 end
