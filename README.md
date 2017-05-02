@@ -2,36 +2,127 @@
 
 ## Learning Competencies
 
-- Build a client-side-heavy Rails application.
-- Consume a JSON API.
-- Build Single Page App.
-- write organized JavaScript code
+* Task 1: Install and use a global NPM package: `create-react-app`
+* Task 2: Name steps in mockup, static, `React.Component` design strategy
+* Task 3: Identify atomic `React.Component`(s) from a mockup and create
+* Task 4: Establish centralized, unidirectional data flow for communication between `React.Component` thus "composing" them
+* Task 5: Articulate virtues of React based on experience
 
 ## Summary
 
-Your mission: build a one-page app using  Javascript to render a simple dashboard for a twitter application. The HTML, CSS, and back-end are already written for you -- all you need to do is write the JavaScript.
+A common application architecture pattern of 2017 is the "non-monolithic application."
+
+It is typical to build a back-end which implements RESTful interfaces and
+returns JSON objects. For this Rails is a typical solution as is PHP, Django,
+or Java.
+
+By building a "view-ignorant" interface, various clients are able to use the
+same system. iPhones and browsers and even Amazon Echos are all able to work
+with back-ends of this variety. These objects constitute another application
+that we'll call the "client" application.
+
+One option here is to build a React application which consumes the JSON. You
+will do this. We will provide you a Rails-based back-end, and you will need to
+build a React application.
 
 ## Development Setup
 
-requires ruby and rubygems.
+Clone this repo to your local system:
+
 ```sh
 $ bundle install
 $ rake db:create && rake db:migrate && rake db:seed
 $ rails server
 ```
 
+You should see the Rails startup message. Confirm that the `/tweets/recent`
+JSON endpoint is active and available
+
 ## Releases
 
-### Release 0: Architect
+### Release 0: See What's Available
 
-We'll be making a single page app, which means we never refresh. All of this will be accomplished using JavaScript. Check the Endpoint Documentation at the bottom of this document to see what data you can request from the server, then look at the Rails app to examine the specific controllers and routes that will allow your Javascript code to send and receive data from the server. You might even hit some of those routes directly in your browser to see what they return.
+Our client application will be in a new directory created with
+`create-react-app`.
 
-Your site needs to have the following functionality:
+We'll be making a single page app, which means we never refresh. All of this
+will be accomplished using React framework.
 
-#### Milestone 1
+Check the Endpoint Documentation at the bottom of this document to see what
+data you can request from the server, then look at the Rails app to examine the
+specific controllers and routes that will allow your Javascript code to send
+and receive data from the server. You might even hit some of those routes
+directly in your browser to see what they return.
 
-> - Determine what should be a component on the page
-> - React componentize the different parts of the app (use hard coded data where possible)
+This is an excellent chance to practice the behavior that will come when you
+seek to consume data from other 3rd party APIs. Your app will be contingent on
+what's published, knowing what you can _get_ will bound what you can _do_.
+
+### Release 1: Implement the Mockup / Static / Static React Component Strategy
+
+You should have practice at _seeing_ small components of screen real estate.
+Some people all them "Widgets" others call them "Components." Section and name
+these components.
+
+Here's an image to jog your memory.
+
+![views diagram](doc/views.png)
+
+You should re-implement implement this page with **no** behavior and with
+**hard-coded** state. You can take the styling and HTML structure from the
+Rails `static/index` view to help speed you along.
+
+**TIP**: Don't not over componentize your app. It's better to have larger
+components that can be refactored later rather than consolidating a bunch of
+smaller components.
+
+### Release 2: Activate the Timeline View
+
+Get a sample of data from the `/tweets/recent` endpoint. It's possible to
+request only a certain number of responses (check the code!) store this
+information in the appropriate Component and cascade the information down to
+the independent `TweetView` Components.
+
+It should be noticable that we're **NOT** working on Ajax calls here. Because
+network calls take time and we're trying to develop quickly we're going to
+"stub" the data in until we get the components working. Once we get the
+Components right and the data cascade right adding AJAX is no big-deal
+
+### Release 3: Provide Fetched Data to the Timeline
+
+When React components are rendered into the DOM they are said to be "mounting."
+
+Every subclass of React.Component will have its "lifecycle methods" run,
+provided that they are defined. The two most important are:
+`componentDidMount()` and ` componentWillUnmount()` which correspond to the
+initial injection into the DOM and shutdown, respectively.
+
+When a component needs to manage some data for itself or for its child
+Components, it's appropriate for the data retrieval to happen in the
+`componentDidMount` method.
+
+Fetch data from the Rails application so that you can populate your
+`TimelineView`.
+
+For more see: [React State and Lifecycle Methods](https://facebook.github.io/react/docs/component-specs.html).
+
+### Release 4: Update the Back-End
+
+Add Components to manage a form. Managing state here gets a little bit
+complicated but the [React Docs][] document the matter explicitly in the
+section on [forms](https://facebook.github.io/react/docs/forms.html).
+
+### Release 5: Repeat
+
+With `TimelineView` and the `TweetBox` view in place, you've had the chance to
+prove that you know the basic competencies behind this challenge. The process
+will remain the same for other data you fetch from the application. If time
+allows, move on to creating other components, stubbing their data in, and then
+fetching the data live. We'll call the work of the release up til now the "MVP"
+or "Milestone 1." It's the demonstration that you understand the "theory"
+behind the application.
+
+A fully realized implementation might proceed like the following.
 
 #### Milestone 2
 
@@ -52,34 +143,6 @@ Your site needs to have the following functionality:
 #### Milestone 5
 > - A user can click on a hashtag in the trends box, which causes the river to display all tweets that are associated with that hashtag, replacing whatever was there before.
 
-
-
-### Release 1: Composition
-
-Componentize the different parts of the application. Use hard coded values where it is necessary (i.e. timeline).
-
-Each component should have one responsiblity which is defined subjectively. From experience, you will have a better intuition of when a component should be broken into smaller components. In the meantime, I would caution you to not over componentize your app. It's better to have larger components that can be refactored later rather than consolidating a bunch of smaller components.
-
-You should avoid any changes to the server-side code, although if you feel like changes are necessary, implement them and make sure the tests reflect your alterations. You will need to remove the filler elements in `app/views/index.html`. Structural changes to HTML and CSS should not be necessary.
-
-As an example, here's a diagram that shows how you might think about the functions that control your views and how they might work together.
-
-![views diagram](doc/views.png)
-
-### Release 2: Fetching Data from the Server
-
-Incorporate AJAX requests to replace the hard coded data from Release 1. You will need to utilize [React State and Lifecycle Methods](https://facebook.github.io/react/docs/component-specs.html).
-
-To accomplish this release, you will also have to understand how to access different data sources from our API. Below is the documentation, but if this was not provided we could check out Rails route.
-
-
-### Release 3: Creating Data on the Server
-
-Add event handlers to the TweetBox form to submit a new Tweet to the database and update the UI without having to refresh the page or refetch from the server.
-
-Tip:
-- Components are not aware of each other. However if they are nested under a parent component, the parent could faciliate the data flow.
-- Remember that functions in JavaScript are treated like any other data type (aka "First Class Citizens"), so they could be passed as props from the parent component to the child component.
 
 ### Endpoint Documentation
 
@@ -174,8 +237,17 @@ The endpoint returns the created tweet as JSON.
 
 ### Stretch
 
-Add any or all features to your application:
+This is a beefy challenge, but to really test your grasp of JavaScript and
+React consider adding any or all features to your application:
 
- - add a system for checking if new tweets have been created since page load, using long-polling.
- - have the river of tweets only display 10 tweets, and dynamically load more when the user scrolls to the bottom of the page.
- - give the user the ability to click hashtags inside tweets, which would display tweets associated with that hashtag.
+ - Add a system for checking if new tweets have been created since page load, using long-polling.
+ - Have the river of tweets only display 10 tweets, and dynamically load more when the user scrolls to the bottom of the page.
+ - Give the user the ability to click hashtags inside tweets, which would display tweets associated with that hashtag.
+
+### Conclusion
+
+This is a tough challenge! It's big and broad and exactly the sort of thing
+thaat would open doors in a coding portfolio! Make it yours or be inspired by
+it to do your own version!
+
+[React Docs]: https://facebook.github.io/react/docs/hello-world.html
