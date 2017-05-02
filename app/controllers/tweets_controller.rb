@@ -1,7 +1,10 @@
 class TweetsController < ApplicationController
   def recent
-    Tweet.ordered_json
-    tweets = Tweet.ordered_json
+    tweets = if params[:limit]
+               Tweet.ordered.limit(params[:limit]).to_json(methods: :hashtag_names)
+             else
+               Tweet.ordered_json
+             end
     render json: tweets
   end
 
