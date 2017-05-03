@@ -65,9 +65,10 @@ Some people call them "Widgets" others call them "Components." React calls them
 `Components`, so we'll stick with that name, but it means the same thing.
 
 In this challenge, the mockup has been provided to you and we've provided
-suggested `Component` names e.g. `TweetView` or `ComposeView`. We've also
-provided a static HTML / CSS version in the Rails `static/index` view to help
-speed you along.
+suggested `Component` names e.g. `Tweet` or `Compose`. `Component`s are usually
+named _noun_. So it's `Composition` (component) versus `Compose` (component).
+We've also provided a static HTML / CSS version in the Rails `static/index`
+view to help speed you along.
 
 ![views diagram](doc/views.png)
 
@@ -79,13 +80,13 @@ Consequently the work of this challenge is to extract the HTML into
 components that can be refactored later rather than consolidating a bunch of
 smaller components.
 
-### Release 2: Work out data sharing between `TimelineView` and `TweetView`s
+### Release 2: Work out data sharing between `Timeline` and `Tweet`s
 
 Get a sample of data from the `/tweets/recent` endpoint. It's possible to
 request only a certain number of responses (check the code!). Store this
-information in the `TimelineView` `Component` and cascade the information down to
-the independent `TweetView` Components. The goal is to have `TimelineView` own
-some data that it feeds to each of its child `TweetView`s.
+information in the `Timeline` `Component` and cascade the information down to
+the independent `Tweet` Components. The goal is to have `Timeline` own
+some data that it feeds to each of its child `Tweet`s.
 
 It should be noticable that we're **NOT** working on Ajax calls here. Because
 network calls take time and we're trying to develop quickly, we're going to
@@ -117,7 +118,7 @@ Components, it's appropriate for the data retrieval to happen in the
 `componentDidMount` method.
 
 Fetch data from the Rails application so that you can populate your
-`TimelineView`.
+`Timeline`.
 
 For more see: [React State and Lifecycle Methods](https://facebook.github.io/react/docs/component-specs.html).
 
@@ -129,7 +130,7 @@ section on [forms](https://facebook.github.io/react/docs/forms.html).
 
 ### Release 5: Repeat
 
-With the `TimelineView` and the `TweetBox` views in place, you've had the chance to
+With the `Timeline` and the `TweetBox` views in place, you've had the chance to
 prove that you know the basic competencies behind this challenge. The process
 will remain the same for other data you fetch from the application. If time
 allows, move on to creating other components, stubbing their data in, and then
