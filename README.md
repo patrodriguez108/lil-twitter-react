@@ -88,6 +88,14 @@ network calls take time and we're trying to develop quickly we're going to
 "stub" the data in until we get the components working. Once we get the
 Components right and the data cascade right adding AJAX is no big-deal
 
+You're going to be iterating over a collection of tweets so you might be
+wondering how to do iteration in JSX. This topic is well-covered in the React
+documentation so try out finding a solution for yourself.
+
+* [Embedding `map` in JSX](https://facebook.github.io/react/docs/lists-and-keys.html#embedding-map-in-jsx)
+
+Be sure to notice the behavior around the "key" property: [Keys in React](https://facebook.github.io/react/docs/lists-and-keys.html#keys)
+
 ### Release 3: Provide Fetched Data to the Timeline
 
 When React components are rendered into the DOM they are said to be "mounting."
