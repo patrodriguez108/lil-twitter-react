@@ -58,52 +58,59 @@ This is an excellent chance to practice the behavior that will come when you
 seek to consume data from other 3rd party APIs. Your app will be contingent on
 what's published, knowing what you can _get_ will bound what you can _do_.
 
-### Release 1: Implement the Mockup / Static / Static React Component Strategy
+### Release 1: Contextualize Work Into  the Mockup / Static / Static React Component Strategy
 
 You should have practice at _seeing_ small components of screen real estate.
-Some people all them "Widgets" others call them "Components." Section and name
-these components.
+Some people call them "Widgets" others call them "Components." React calls them
+`Components`, so we'll stick with that name, but it means the same thing.
 
-Here's an image to jog your memory.
+In this challenge, the mockup has been provided to you and we've provided
+suggested `Component` names e.g. `TweetView` or `ComposeView`. We've also
+provided a static HTML / CSS version in the Rails `static/index` view to help
+speed you along.
 
 ![views diagram](doc/views.png)
 
-You should re-implement implement this page with **no** behavior and with
-**hard-coded** state. You can take the styling and HTML structure from the
-Rails `static/index` view to help speed you along.
+Consequently the work of this challenge is to extract the HTML into
+`Component`s.  You should re-implement this page in a React application with
+**no** behavior and **with** hard-coded state.
 
-**TIP**: Don't not over componentize your app. It's better to have larger
+**TIP**: Don not over-componentize your app. It's better to have larger
 components that can be refactored later rather than consolidating a bunch of
 smaller components.
 
-### Release 2: Activate the Timeline View
+### Release 2: Work out data sharing between `TimelineView` and `TweetView`s
 
 Get a sample of data from the `/tweets/recent` endpoint. It's possible to
-request only a certain number of responses (check the code!) store this
-information in the appropriate Component and cascade the information down to
-the independent `TweetView` Components.
+request only a certain number of responses (check the code!). Store this
+information in the `TimelineView` `Component` and cascade the information down to
+the independent `TweetView` Components. The goal is to have `TimelineView` own
+some data that it feeds to each of its child `TweetView`s.
 
 It should be noticable that we're **NOT** working on Ajax calls here. Because
-network calls take time and we're trying to develop quickly we're going to
+network calls take time and we're trying to develop quickly, we're going to
 "stub" the data in until we get the components working. Once we get the
-Components right and the data cascade right adding AJAX is no big-deal
+`Component`s right and the data cascade right adding AJAX is no big deal. So
+the move here is from hard-coded stub data to stubbed data _that is actually in
+the back-end system_.
 
-You're going to be iterating over a collection of tweets so you might be
-wondering how to do iteration in JSX. This topic is well-covered in the React
-documentation so try out finding a solution for yourself.
+You're going to be iterating over a collection of tweets as JSON, so you might
+want to keep the reference for iteration in JSX handy.  This topic is
+well-covered in the React documentation so practice your React doc reading
+skills: [Embedding `map` in JSX][map]. By most professional measures React's
+documentation is top-notch.
 
-* [Embedding `map` in JSX](https://facebook.github.io/react/docs/lists-and-keys.html#embedding-map-in-jsx)
-
-Be sure to notice the behavior around the "key" property: [Keys in React](https://facebook.github.io/react/docs/lists-and-keys.html#keys)
+Be sure to notice the behavior around the "key" property: [Keys in React][keys]
 
 ### Release 3: Provide Fetched Data to the Timeline
 
 When React components are rendered into the DOM they are said to be "mounting."
 
-Every subclass of React.Component will have its "lifecycle methods" run,
+Every subclass of `React.Component` will have its "lifecycle methods" run,
 provided that they are defined. The two most important are:
 `componentDidMount()` and ` componentWillUnmount()` which correspond to the
-initial injection into the DOM and shutdown, respectively.
+initial injection into the DOM and shutdown, respectively. It's sort of like
+the `document.ready()` for the `Component`.
 
 When a component needs to manage some data for itself or for its child
 Components, it's appropriate for the data retrieval to happen in the
@@ -122,7 +129,7 @@ section on [forms](https://facebook.github.io/react/docs/forms.html).
 
 ### Release 5: Repeat
 
-With `TimelineView` and the `TweetBox` view in place, you've had the chance to
+With the `TimelineView` and the `TweetBox` views in place, you've had the chance to
 prove that you know the basic competencies behind this challenge. The process
 will remain the same for other data you fetch from the application. If time
 allows, move on to creating other components, stubbing their data in, and then
@@ -259,3 +266,5 @@ thaat would open doors in a coding portfolio! Make it yours or be inspired by
 it to do your own version!
 
 [React Docs]: https://facebook.github.io/react/docs/hello-world.html
+[map]: https://facebook.github.io/react/docs/lists-and-keys.html#embedding-map-in-jsx
+[keys]: https://facebook.github.io/react/docs/lists-and-keys.html#keys
