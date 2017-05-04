@@ -159,6 +159,9 @@ directive after the `config.assets.version` line:
 Here we're saying allow requests from any location (`*`) of the 3 HTTP verb
 types `GET`, `POST`, and `OPTIONS`.
 
+You'll need to stop and restart your Rails server for this change to take
+effect.
+
 For more see: [React State and Lifecycle Methods](https://facebook.github.io/react/docs/component-specs.html).
 
 ### Release 4: Update the Back-End
@@ -166,6 +169,36 @@ For more see: [React State and Lifecycle Methods](https://facebook.github.io/rea
 Add Components to manage a form. Managing state here gets a little bit
 complicated but the [React Docs][] document the matter explicitly in the
 section on [forms](https://facebook.github.io/react/docs/forms.html).
+
+#### Another Protection: CSRF: Cross-Site Request Forgery
+
+[Read the Reddit Explain Like I'm 5 post about CSRF][eli5].
+
+In order to protect Rails from  CSRF , Rails, with each `<form>` adds a little
+secret (called a `nonce` in the Reddit article) which say "Hey form, when you
+come back in, to prove that I was the one that wrote you, tell me this one-time
+password I just told you." The "nonce" is stored in a hidden field called
+`authenticity_token`.
+
+		 <form class="new_tweet" id="new_tweet" action="/tweets" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="XaBzSK0RYBthutdDGZN1ug2j17kUEmSJ9b8HJg7OQB12MBJVt/QYeUmJX7vRHRqKSpFGLJqh9SpnkdugkE9HQQ==" />
+				<h1>hi</h1>
+				<input type="text" name="tweet[username]" id="tweet_username" />
+				<input type="submit" name="commit" value="Create Tweet" />
+		</form>
+
+Here Rails, when `POST`ing the new `Tweet` says, "Hey to prove that I was the
+one to whom you gave you this update URL, here's the secret password:
+`XaBzSK0RYBthutdDGZN1ug2j17kUEmSJ9b8HJg7OQB12MBJVt`."
+
+Now if you're building a form in another React application, you obviously don't
+have the seret token. Consequently if you update, you won't pass the CSRF
+protection. For purposes of this excercise, we will remove that protection.
+
+From `app/controllers/application_controller.rb`, remove the line
+`protect_from_forgery`. Save the file.
+
+You'll need to stop and restart your Rails server for this change to take
+effect.
 
 ### Release 5: Repeat
 
@@ -309,3 +342,4 @@ it to do your own version!
 [map]: https://facebook.github.io/react/docs/lists-and-keys.html#embedding-map-in-jsx
 [keys]: https://facebook.github.io/react/docs/lists-and-keys.html#keys
 [cors]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+[eli5]: https://www.reddit.com/r/explainlikeimfive/comments/wayk3/eli5_cross_site_request_forgery_csrf/
