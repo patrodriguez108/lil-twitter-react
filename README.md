@@ -120,6 +120,45 @@ Components, it's appropriate for the data retrieval to happen in the
 Fetch data from the Rails application so that you can populate your
 `Timeline`.
 
+When you perform your asynchronous call to the Rails server, you're going to
+get an error about CORS. You **should hit this error**. We have left it in
+place for you to learn something important.
+
+#### Expected Errors
+
+[CORS means "Cross Origin Resource Sharing."][cors] it's designed to be a
+safety measure against certain types of attacks on servers that are perpetrated
+by malicious individuals called "Denial of Service" (DoS) attacks.
+
+Imagine a web server that accepts API requests from all individuals across the
+world.  Imagine a malicious person had control over thousands of computers (a
+"botnet") and knew of an API request that was complicated or "expensive" to
+calculate. By having an army of these machines all constantly requesting that
+same expensive calculation be done, the attacker could "bog down" the web
+server or database or both such that the web site would stop responding thus
+"taking it off the air" or "Denying the service."
+
+As a guard against these types of attacks, Rails ships with a protection that
+will only let AJAX requests from the same source query it. So JavaScript served
+at `http://localhost:3000` can ask `http://localhost:3000` for some async data,
+but JavaScript served from `http://localhost:8000` (say your React app created
+by `create-react-app`), by default, **cannot** make that same query. We have to
+tell Rails to let the wide world make API requests. Implicitly we're saying
+that we realize DoS attacks are possible when we change this default
+configuration to a more permissive state.
+
+In the Rails app's `config/application.rb` file add the following `config`
+directive after the `config.assets.version` line:
+
+    # Disable CORS for React App
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Origin' => '*',
+      'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")
+    }
+
+Here we're saying allow requests from any location (`*`) of the 3 HTTP verb
+types `GET`, `POST`, and `OPTIONS`.
+
 For more see: [React State and Lifecycle Methods](https://facebook.github.io/react/docs/component-specs.html).
 
 ### Release 4: Update the Back-End
@@ -269,3 +308,4 @@ it to do your own version!
 [React Docs]: https://facebook.github.io/react/docs/hello-world.html
 [map]: https://facebook.github.io/react/docs/lists-and-keys.html#embedding-map-in-jsx
 [keys]: https://facebook.github.io/react/docs/lists-and-keys.html#keys
+[cors]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
