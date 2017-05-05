@@ -192,7 +192,7 @@ one to whom you gave you this update URL, here's the secret password:
 
 Now if you're building a form in another React application, you obviously don't
 have the seret token. Consequently if you update, you won't pass the CSRF
-protection. For purposes of this excercise, we will remove that protection.
+protection. For purposes of this exercise, we will remove that protection.
 
 From `app/controllers/application_controller.rb`, remove the line
 `protect_from_forgery`. Save the file.
