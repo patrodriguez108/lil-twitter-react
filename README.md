@@ -115,12 +115,10 @@ the `document.ready()` for the `Component`.
 
 When a component needs to manage some data for itself or for its child
 Components, it's appropriate for the data retrieval to happen in the
-`componentDidMount` method.
+`componentDidMount` method. For more see: [React State and Lifecycle Methods][ReactLC].
 
 Fetch data from the Rails application so that you can populate your
 `Timeline`.
-
-For more see: [React State and Lifecycle Methods][ReactLC].
 
 Feel free to use `$.ajax` (you'll need to install jQuery into the
 `create-react-app` environment). Alternatively, you could take a try
@@ -129,11 +127,84 @@ for `$.ajax` and is becoming The New Standard Thing.
 
 Based on your pair's momentum, decide which implementation best suits you.
 
+When you perform your asynchronous call to the Rails server, you're going to
+get an error about CORS. You **should hit this error**. We have left it in
+place for you to learn something important.
+
+#### Expected Errors
+
+[CORS means "Cross Origin Resource Sharing."][cors] it's designed to be a
+safety measure against certain types of attacks on servers that are perpetrated
+by malicious individuals called "Denial of Service" (DoS) attacks.
+
+Imagine a web server that accepts API requests from all individuals across the
+world.  Imagine a malicious person had control over thousands of computers (a
+"botnet") and knew of an API request that was complicated or "expensive" to
+calculate. By having an army of these machines all constantly requesting that
+same expensive calculation be done, the attacker could "bog down" the web
+server or database or both such that the web site would stop responding thus
+"taking it off the air" or "Denying the service."
+
+As a guard against these types of attacks, Rails ships with a protection that
+will only let AJAX requests from the same source query it. So JavaScript served
+at `http://localhost:3000` can ask `http://localhost:3000` for some async data,
+but JavaScript served from `http://localhost:8000` (say your React app created
+by `create-react-app`), by default, **cannot** make that same query. We have to
+tell Rails to let the wide world make API requests. Implicitly we're saying
+that we realize DoS attacks are possible when we change this default
+configuration to a more permissive state.
+
+In the Rails app's `config/application.rb` file add the following `config`
+directive after the `config.assets.version` line:
+
+    # Disable CORS for React App
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Origin' => '*',
+      'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")
+    }
+
+Here we're saying allow requests from any location (`*`) of the 3 HTTP verb
+types `GET`, `POST`, and `OPTIONS`.
+
+You'll need to stop and restart your Rails server for this change to take
+effect.
+
+
 ### Release 4: Update the Back-End
 
 Add Components to manage a form. Managing state here gets a little bit
 complicated but the [React Docs][] document the matter explicitly in the
 section on [forms](https://facebook.github.io/react/docs/forms.html).
+
+#### Another Protection: CSRF: Cross-Site Request Forgery
+
+[Read the Reddit Explain Like I'm 5 post about CSRF][eli5].
+
+In order to protect Rails from  CSRF , Rails, with each `<form>` adds a little
+secret (called a `nonce` in the Reddit article) which say "Hey form, when you
+come back in, to prove that I was the one that wrote you, tell me this one-time
+password I just told you." The "nonce" is stored in a hidden field called
+`authenticity_token`.
+
+		 <form class="new_tweet" id="new_tweet" action="/tweets" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="XaBzSK0RYBthutdDGZN1ug2j17kUEmSJ9b8HJg7OQB12MBJVt/QYeUmJX7vRHRqKSpFGLJqh9SpnkdugkE9HQQ==" />
+				<h1>hi</h1>
+				<input type="text" name="tweet[username]" id="tweet_username" />
+				<input type="submit" name="commit" value="Create Tweet" />
+		</form>
+
+Here Rails, when `POST`ing the new `Tweet` says, "Hey to prove that I was the
+one to whom you gave you this update URL, here's the secret password:
+`XaBzSK0RYBthutdDGZN1ug2j17kUEmSJ9b8HJg7OQB12MBJVt`."
+
+Now if you're building a form in another React application, you obviously don't
+have the seret token. Consequently if you update, you won't pass the CSRF
+protection. For purposes of this exercise, we will remove that protection.
+
+From `app/controllers/application_controller.rb`, remove the line
+`protect_from_forgery`. Save the file.
+
+You'll need to stop and restart your Rails server for this change to take
+effect.
 
 ### Release 5: Repeat
 
@@ -278,3 +349,6 @@ it to do your own version!
 [keys]: https://facebook.github.io/react/docs/lists-and-keys.html#keys
 [ReactLS]: https://facebook.github.io/react/docs/component-specs.html
 [fetch-intro]: https://dev.to/jspeda/using-fetch-and-reduce-to-grab-and-format-data-from-an-external-api---a-practical-guide
+[cors]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+[eli5]: https://www.reddit.com/r/explainlikeimfive/comments/wayk3/eli5_cross_site_request_forgery_csrf/
+
