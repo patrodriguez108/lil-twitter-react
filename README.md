@@ -115,10 +115,17 @@ the `document.ready()` for the `Component`.
 
 When a component needs to manage some data for itself or for its child
 Components, it's appropriate for the data retrieval to happen in the
-`componentDidMount` method.
+`componentDidMount` method. For more see: [React State and Lifecycle Methods][ReactLC].
 
 Fetch data from the Rails application so that you can populate your
 `Timeline`.
+
+Feel free to use `$.ajax` (you'll need to install jQuery into the
+`create-react-app` environment). Alternatively, you could take a try
+at [using the new `fetch()` API of ES6][fetch-intro]. It's designed to be a replacement
+for `$.ajax` and is becoming The New Standard Thing.
+
+Based on your pair's momentum, decide which implementation best suits you.
 
 When you perform your asynchronous call to the Rails server, you're going to
 get an error about CORS. You **should hit this error**. We have left it in
@@ -162,7 +169,6 @@ types `GET`, `POST`, and `OPTIONS`.
 You'll need to stop and restart your Rails server for this change to take
 effect.
 
-For more see: [React State and Lifecycle Methods](https://facebook.github.io/react/docs/component-specs.html).
 
 ### Release 4: Update the Back-End
 
@@ -341,5 +347,8 @@ it to do your own version!
 [React Docs]: https://facebook.github.io/react/docs/hello-world.html
 [map]: https://facebook.github.io/react/docs/lists-and-keys.html#embedding-map-in-jsx
 [keys]: https://facebook.github.io/react/docs/lists-and-keys.html#keys
+[ReactLS]: https://facebook.github.io/react/docs/component-specs.html
+[fetch-intro]: https://dev.to/jspeda/using-fetch-and-reduce-to-grab-and-format-data-from-an-external-api---a-practical-guide
 [cors]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 [eli5]: https://www.reddit.com/r/explainlikeimfive/comments/wayk3/eli5_cross_site_request_forgery_csrf/
+
