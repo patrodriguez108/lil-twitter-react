@@ -347,7 +347,7 @@ it to do your own version!
 [React Docs]: https://facebook.github.io/react/docs/hello-world.html
 [map]: https://facebook.github.io/react/docs/lists-and-keys.html#embedding-map-in-jsx
 [keys]: https://facebook.github.io/react/docs/lists-and-keys.html#keys
-[ReactLS]: https://facebook.github.io/react/docs/component-specs.html
+[ReactLC]: https://facebook.github.io/react/docs/component-specs.html
 [fetch-intro]: https://dev.to/jspeda/using-fetch-and-reduce-to-grab-and-format-data-from-an-external-api---a-practical-guide
 [cors]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 [eli5]: https://www.reddit.com/r/explainlikeimfive/comments/wayk3/eli5_cross_site_request_forgery_csrf/
