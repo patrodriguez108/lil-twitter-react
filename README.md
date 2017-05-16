@@ -2,11 +2,11 @@
 
 ## Learning Competencies
 
-* Task 1: Install and use a global NPM package: `create-react-app`
-* Task 2: Name steps in mockup, static, `React.Component` design strategy
-* Task 3: Identify atomic `React.Component`(s) from a mockup and create
-* Task 4: Establish centralized, unidirectional data flow for communication between `React.Component` thus "composing" them
-* Task 5: Articulate virtues of React based on experience
+* Learning Objective 1: Install and use a global NPM package: `create-react-app`
+* Learning Objective 2: Name steps in mockup, static, `React.Component` design strategy
+* Learning Objective 3: Identify atomic `React.Component`(s) from a mockup and create
+* Learning Objective 4: Establish centralized, unidirectional data flow for communication between `React.Component` thus "composing" them
+* Learning Objective 5: Articulate virtues of React based on experience
 
 ## Summary
 
