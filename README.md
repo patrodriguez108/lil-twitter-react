@@ -22,8 +22,8 @@ with back-ends of this variety. These objects constitute another application
 that we'll call the "client" application.
 
 One option here is to build a React application which consumes the JSON. You
-will do this. We will provide you a Rails-based back-end, and you will need to
-build a React application.
+will do this. We will provide you a Rails-based back-end. You will need to
+build a React application using `create-react-app`.
 
 ## Development Setup
 
@@ -37,6 +37,13 @@ $ rails server
 
 You should see the Rails startup message. Confirm that the `/tweets/recent`
 JSON endpoint is active and available
+
+Create a baseline application with `create-react-app`. Start it up with `yarn
+start`. When you do so you will see that the React web server will be "in
+contention" with the Rails server for port 3000. You can set a `PORT`
+environment variable when executing the `yarn start` command **OR** you can
+find an option in the `rails --help` screen to find changing _its_ port.
+Welcome to the wrinkles of non-monolithic app development!
 
 ## Releases
 
