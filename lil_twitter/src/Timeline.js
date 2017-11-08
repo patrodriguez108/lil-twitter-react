@@ -15,15 +15,16 @@ class Timeline extends Component {
 	}
 
 	componentDidMount() {
-			this.setState({
-				tweets: data
-			})
+		this.setState({
+			tweets: data
+		})
 	}
+
 
 	render() {
 		const recentTweets = this.state.tweets;
 		const listItems = recentTweets.map(function(tweet) {
-			return (<Tweet />)
+			return (<Tweet key={tweet.id} {...tweet} />)
 		})
 		return (
 
