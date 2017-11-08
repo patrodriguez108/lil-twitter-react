@@ -9,6 +9,7 @@ class SearchBox extends Component {
 		    <form id="search-form">
 		      <input id="search" type="text" name="query" />
 		    </form>
+		    <i className="fa fa-search"></i>
       </header>
 		)
 	}

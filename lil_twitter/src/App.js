@@ -4,6 +4,15 @@ import Composition from './Composition'
 import Hashtags from './Hashtags'
 import Timeline from './Timeline'
 import './App.css';
+var $ = window.jQuery
+
+$(document).ready(function() {
+  $.ajax({
+    url: '/tweets/recent'
+  }).done(function(response) {
+    console.log(response)
+  })
+})
 
 class App extends Component {
   render() {

@@ -19,11 +19,9 @@ class Timeline extends Component {
 		      <Tweet />
 		      <Tweet />
 	      </ul>
-			      
-			  </section>
+			</section>
 		)
 	}
-
 }
 
 export default Timeline;
