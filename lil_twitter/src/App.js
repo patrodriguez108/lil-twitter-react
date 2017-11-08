@@ -4,15 +4,27 @@ import Composition from './Composition'
 import Hashtags from './Hashtags'
 import Timeline from './Timeline'
 import './App.css';
-var $ = window.jQuery
+// import $ from 'jquery';
+// import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios'
+// import axios from 'axios'
 
-$(document).ready(function() {
-  $.ajax({
-    url: '/tweets/recent'
-  }).done(function(response) {
-    console.log(response)
-  })
-})
+
+
+// $(document).ready(function() {
+//   $.ajax({
+//     method: 'GET',
+//     url: 'http://localhost:3000/tweets/recent'
+//   }).done(function(response) {
+//     console.log(response)
+//   })
+//   axios.get('/tweets/recent')
+//   .then(function (response) {
+//     console.log(response);
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
+// })
 
 class App extends Component {
   render() {
