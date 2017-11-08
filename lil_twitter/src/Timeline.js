@@ -8,24 +8,15 @@ class Timeline extends Component {
 		super(props);
 
 		this.state = {
-			tweetContent: undefined,
-			nameOfUser: undefined,
-			handleName: undefined,
-			avatarSrc: undefined,
-			createdAt: undefined
+
 		}
+
+		this.tweets = [];
 	}
 
 	componentDidMount() {
 		for (var i = 0; i < data.length; i++) {
-			console.log(data[i]);
-			this.setState({
-				tweetContent: data[i].content,
-				nameOfUser: data[i].username,
-				handleName: data[i].handle,
-				avatarSrc: data[i].avatar_url,
-				createdAt: data[i].created_at
-			})
+			this.tweets.push(new Tweet(data[i]))
 		}
 	}
 
