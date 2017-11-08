@@ -8,27 +8,29 @@ class Timeline extends Component {
 		super(props);
 
 		this.state = {
+			tweets: []
 
 		}
 
-		this.tweets = [];
 	}
 
 	componentDidMount() {
-		for (var i = 0; i < data.length; i++) {
-			this.tweets.push(new Tweet(data[i]))
-		}
+			this.setState({
+				tweets: data
+			})
 	}
 
 	render() {
+		const recentTweets = this.state.tweets;
+		const listItems = recentTweets.map(function(tweet) {
+			return (<Tweet />)
+		})
 		return (
+
 			<section id="tweets-container">
 				<h3>Tweets</h3>
 				<ul>
-		      <Tweet tweetContent={this.state.tweetContent} nameOfUser={this.state.nameOfUser} handleName={this.state.handleName} avatarSrc={this.state.avatarSrc} createdAt={this.state.createdAt} />
-		      <Tweet tweetContent={this.state.tweetContent} nameOfUser={this.state.nameOfUser} handleName={this.state.handleName} avatarSrc={this.state.avatarSrc} createdAt={this.state.createdAt} />
-		      <Tweet tweetContent={this.state.tweetContent} nameOfUser={this.state.nameOfUser} handleName={this.state.handleName} avatarSrc={this.state.avatarSrc} createdAt={this.state.createdAt} />
-
+					{listItems}
 	      </ul>
 			</section>
 		)
