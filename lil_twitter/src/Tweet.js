@@ -22,7 +22,7 @@ class Tweet extends Component {
 	        <p>
 	          <span className="full-name">{ this.state.nameOfUser }</span>
 	          <span className="username">{ this.state.handleName }</span>
-	          <span className="timestamp">- 6m</span>
+	          <span className="timestamp">- { this.state.createdAt }</span>
 	        </p>
 	        <p>{ this.state.tweetContent }</p>
 	      </div>
